@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professional Resume</title>
+  <style>
+    :root {
+      color-scheme: light;
+      color: #111827;
+      background: #f8fafc;
+      font-family: Inter, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f8fafc;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+    }
+
+    header {
+      padding: 40px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    .contact {
+      margin: 14px auto 0;
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 780px;
+    }
+
+    .section {
+      padding: 32px 40px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .section:first-of-type {
+      border-top: none;
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 0.95rem;
+      color: #0f172a;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .section p,
+    .section li,
+    .section dt,
+    .section dd {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .job,
+    .education-item,
+    .project-item,
+    .certification-item {
+      margin-bottom: 24px;
+    }
+
+    .job:last-child,
+    .education-item:last-child,
+    .project-item:last-child,
+    .certification-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-title,
+    .education-title,
+    .project-title {
+      margin: 0;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .meta {
+      margin: 6px 0 12px;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    ul.clean {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    ul.clean li {
+      margin-bottom: 12px;
+    }
+
+    .footer {
+      padding: 24px 40px 40px;
+      color: #64748b;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 780px) {
+      .page {
+        border-radius: 0;
+      }
+
+      .section,
+      header,
+      .footer {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1 class="title">Amy Betancur</h1>
+      <p class="contact">1112 S 1100 W, Provo, Utah 84601 • (385)-233-1056 • amybetancur@gmail.com</p>
+    </header>
+
+    <section class="section">
+      <h2>Summary</h2>
+      <p>Strategic and results-driven professional with experience leading teams, improving systems, and delivering measurable outcomes. Strong communicator with a proven ability to simplify complexity and drive progress across functions.</p>
+    </section>
+
+    <section class="section card-grid">
+      <div>
+        <div class="job">
+          <h3 class="job-title">Job Title — Victoria's Secret, Grand Teton Mall / University Mall</h3>
+          <p class="meta">September 2020 - Present</p>
+          <ul class="clean">
+            <li>Customer service oriented / people oriented with excellent communication skills.</li>
+            <li>Greet customers in a timely fashion and quickly determine their needs.</li>
+            <li>Maintain knowledge of current promotions, sales, and policies regarding exchanges, returns, and security practices.</li>
+            <li>Complete cleaning, stocking, and organization tasks in the sales and shipment area.</li>
+            <li>Use the cash register and two-way radio daily.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <h3 class="job-title">Door Salesman — Moxie Pest Control, Chantilly, VA</h3>
+          <p class="meta">May 2021 - July 2021</p>
+          <ul class="clean">
+            <li>Scheduled appointments to assist customers with pest control services.</li>
+            <li>Maintained customer and prospect database to manage data and schedule appointments and follow-ups.</li>
+            <li>Explained and promoted MOXIE's comprehensive pest service to demonstrate value and drive sales.</li>
+            <li>Completed required paperwork for each sale and scheduled installation appointments; demonstrated product features.</li>
+            <li>Calculated sales prices and processed cash or credit transactions.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <h3 class="job-title">Grocery Stocker (CAP Team 2) — Walmart, Rexburg, ID</h3>
+          <p class="meta">January 2021 - March 2021</p>
+          <ul class="clean">
+            <li>Worked each shift to handle customer needs, merchandise products, and keep grocery aisles clean.</li>
+            <li>Located items for customers from floor locations or storage areas to meet order demands; restocked shelves and faced products.</li>
+            <li>Engaged with customers to offer assistance and promote products.</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 class="job-title">Skills</h3>
+        <ul class="clean">
+          <li>Excellent communication skills and customer service skills</li>
+          <li>Adaptable</li>
+          <li>Multitasking</li>
+          <li>Problem-solving</li>
+          <li>Team player</li>
+        </ul>
+        <h3 class="job-title" style="margin-top:16px;">Languages</h3>
+        <p>Fluent in English and Spanish</p>
+      </aside>
+    </section>
+
+    <section class="section">
+      <h2>Education</h2>
+      <div class="education-item">
+        <h3 class="education-title">Biomedical — Brigham Young University–Idaho</h3>
+        <p class="meta">Rexburg, ID • April 2020 - Present</p>
+        <p>Major: Biomedical; Minor: Business Marketing.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Projects</h2>
+      <div class="project-item">
+        <h3 class="project-title">[Project Name]</h3>
+        <p>Developed a [solution] to solve [challenge], leading to improved results and stronger stakeholder alignment.</p>
+      </div>
+      <div class="project-item">
+        <h3 class="project-title">[Project Name]</h3>
+        <p>Implemented a [tool/process] that increased efficiency and supported growth in [area].</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Certifications</h2>
+      <div class="certification-item">
+        <p class="meta">[Certification Name], [Issuing Organization], [Year]</p>
+      </div>
+      <div class="certification-item">
+        <p class="meta">[Certification Name], [Issuing Organization], [Year]</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Available for opportunities and interviews. References available upon request.</p>
+    </footer>
+  </div>
+</body>
+</html>
