@@ -1,12 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golf — Amy's Hobby Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --green-deep:   #1a3a2a;
+      --green-mid:    #2d5a3d;
+      --green-bright: #4a8c5c;
+      --gold:         #c9a84c;
+      --sand:         #f2e8d0;
+      --cream:        #faf7f0;
+      --text-dark:    #1a1a1a;
+      --text-muted:   #5a5a5a;
+      --white:        #ffffff;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--green-deep);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--sand);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--gold); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 92vh;
+      background-image:
+        linear-gradient(to bottom, rgba(26,58,42,0.72) 0%, rgba(26,58,42,0.4) 60%, rgba(26,58,42,0.85) 100%),
+        url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1600&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      max-width: 900px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      margin-top: 1.5rem;
+      color: var(--sand);
+      font-size: 1.15rem;
+      max-width: 540px;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      padding: 0.75rem 2rem;
+      border-radius: 2px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--green-deep);
+    }
+    .btn-gold:hover { background: #d4b05e; }
+    .btn-outline {
+      border: 1.5px solid var(--sand);
+      color: var(--sand);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
+
+    /* ── Section scaffold ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--green-deep);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-title span { color: var(--gold); }
+    .divider {
+      width: 56px; height: 3px;
+      background: var(--gold);
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    /* ── Golfers ── */
+    #golfers { background: var(--green-deep); }
+    #golfers .section-label { color: var(--gold); }
+    #golfers .section-title { color: var(--white); }
+    #golfers .section-title span { color: var(--gold); }
+    #golfers p.intro { color: var(--sand); max-width: 580px; margin-bottom: 3rem; }
+
+    .golfer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .golfer-card {
+      background: var(--green-mid);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .golfer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+    .golfer-card img {
+      width: 100%; height: 210px;
+      object-fit: cover; object-position: top;
+      display: block;
+    }
+    .golfer-info { padding: 1.25rem; }
+    .golfer-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .golfer-info .country {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .golfer-info ul {
+      list-style: none;
+      padding: 0;
+    }
+    .golfer-info ul li {
+      font-size: 0.875rem;
+      color: var(--sand);
+      padding: 0.2rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .golfer-info ul li::before {
+      content: '▸';
+      color: var(--gold);
+      position: absolute; left: 0;
+      font-size: 0.7rem;
+    }
+
+    /* ── Bag / Clubs ── */
+    #clubs { background: var(--sand); }
+    .clubs-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .clubs-img {
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    .clubs-content p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .bag-list {
+      counter-reset: bag-counter;
+      list-style: none;
+      padding: 0;
+    }
+    .bag-list > li {
+      counter-increment: bag-counter;
+      margin-bottom: 1.5rem;
+      border-left: 3px solid var(--green-bright);
+      padding-left: 1.25rem;
+    }
+    .bag-list > li .club-category {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--green-deep);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .bag-list > li .club-category::before {
+      content: counter(bag-counter, decimal-leading-zero);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      min-width: 1.8rem;
+    }
+    .bag-list > li ul {
+      list-style: disc;
+      padding-left: 2.5rem;
+    }
+    .bag-list > li ul li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      padding: 0.15rem 0;
+    }
+
+    /* ── Courses ── */
+    #courses { background: var(--cream); }
+    .courses-intro { color: var(--text-muted); max-width: 560px; margin-bottom: 3rem; }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .course-card {
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    .course-card img {
+      width: 100%; height: 200px;
+      object-fit: cover; display: block;
+    }
+    .course-card-body { padding: 1.25rem; background: var(--white); }
+    .course-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--green-deep);
+      margin-bottom: 0.25rem;
+    }
+    .course-card-body .location {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+      margin-bottom: 0.6rem;
+    }
+    .course-card-body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Video ── */
+    #video { background: var(--green-deep); }
+    #video .section-label { color: var(--gold); }
+    #video .section-title { color: var(--white); }
+    #video .section-title span { color: var(--gold); }
+    #video p.intro { color: var(--sand); max-width: 600px; margin-bottom: 2.5rem; }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* ── Tips ── */
+    #tips { background: var(--sand); }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .tip-card {
+      background: var(--white);
+      border-radius: 4px;
+      padding: 1.75rem;
+      border-top: 4px solid var(--green-bright);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .tip-card .tip-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--green-bright);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .tip-card h3 {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--green-deep);
+      margin-bottom: 0.5rem;
+    }
+    .tip-card p { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--green-deep);
+      color: var(--sand);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .clubs-layout { grid-template-columns: 1fr; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
-    These are my hobbies
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">⛳ Fairway Life</div>
+    <ul>
+      <li><a href="#golfers">Pros</a></li>
+      <li><a href="#clubs">My Bag</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#video">Watch</a></li>
+      <li><a href="#tips">Tips</a></li>
+      <li><a href="index.html" target="_blank">My Resume</a></li>
+      <li><a href="game.html" target="_blank">My Game</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <p class="hero-eyebrow">A Passion for the Game</p>
+    <h1>Life is Better<br/><span>On the Green</span></h1>
+    <p>From the mountains of Utah to world-class fairways — golf is more than a sport. It's a mindset.</p>
+    <div class="hero-cta">
+      <a href="#courses" class="btn btn-gold">Favorite Courses</a>
+      <a href="#tips" class="btn btn-outline">Beginner Tips</a>
+    </div>
+  </section>
+
+  <!-- PRO GOLFERS -->
+  <section id="golfers">
+    <div class="container">
+      <p class="section-label">On Tour</p>
+      <h2 class="section-title">My Favorite <span>Pro Golfers</span></h2>
+      <div class="divider"></div>
+      <p class="intro">These players inspire me every time I step onto the course — their precision, mental toughness, and love of the game are unmatched.</p>
+      <div class="golfer-grid">
+
+        <div class="golfer-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Rory_McIlroy_%282013%29.jpg/440px-Rory_McIlroy_%282013%29.jpg" alt="Rory McIlroy" />
+          <div class="golfer-info">
+            <h3>Rory McIlroy</h3>
+            <p class="country">🇬🇧 Northern Ireland</p>
+            <ul>
+              <li>4× Major champion</li>
+              <li>2024 FedEx Cup winner</li>
+              <li>Known for explosive driving</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="golfer-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Scottie_Scheffler_2022.jpg/440px-Scottie_Scheffler_2022.jpg" alt="Scottie Scheffler" />
+          <div class="golfer-info">
+            <h3>Scottie Scheffler</h3>
+            <p class="country">🇺🇸 USA</p>
+            <ul>
+              <li>World No. 1 ranked player</li>
+              <li>2024 Masters champion</li>
+              <li>Dominant iron play</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="golfer-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Collin_Morikawa_2022_US_Open_%28cropped%29.jpg/440px-Collin_Morikawa_2022_US_Open_%28cropped%29.jpg" alt="Collin Morikawa" />
+          <div class="golfer-info">
+            <h3>Collin Morikawa</h3>
+            <p class="country">🇺🇸 USA</p>
+            <ul>
+              <li>2× Major champion</li>
+              <li>Best iron player in the world</li>
+              <li>Cal Berkeley alumnus</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MY BAG / CLUBS -->
+  <section id="clubs">
+    <div class="container">
+      <div class="clubs-layout">
+        <div>
+          <img class="clubs-img"
+            src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=800&q=80"
+            alt="Golf clubs in a bag on a sunny course" />
+        </div>
+        <div class="clubs-content">
+          <p class="section-label">What's In My Bag</p>
+          <h2 class="section-title">The <span>Clubs I Use</span></h2>
+          <div class="divider"></div>
+          <p>Every golfer's bag tells a story. Here's mine — organized by club type with the specific sticks I trust on the course.</p>
+
+          <!-- Ordered list with nested unordered lists -->
+          <ol class="bag-list">
+            <li>
+              <span class="club-category">Woods &amp; Driver</span>
+              <ul>
+                <li>TaylorMade Stealth 2 Driver (10.5°)</li>
+                <li>TaylorMade Stealth 2 3-Wood</li>
+              </ul>
+            </li>
+            <li>
+              <span class="club-category">Hybrids</span>
+              <ul>
+                <li>Callaway Apex 4-Hybrid</li>
+                <li>Callaway Apex 5-Hybrid</li>
+              </ul>
+            </li>
+            <li>
+              <span class="club-category">Irons</span>
+              <ul>
+                <li>Titleist T200 Irons (6–9)</li>
+                <li>Titleist T100 Irons (PW)</li>
+              </ul>
+            </li>
+            <li>
+              <span class="club-category">Wedges</span>
+              <ul>
+                <li>Callaway Jaws Raw 52° Gap Wedge</li>
+                <li>Callaway Jaws Raw 58° Sand Wedge</li>
+                <li>Vokey SM9 60° Lob Wedge</li>
+              </ul>
+            </li>
+            <li>
+              <span class="club-category">Putter</span>
+              <ul>
+                <li>Scotty Cameron Special Select Flowback 5</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UTAH COURSES -->
+  <section id="courses">
+    <div class="container">
+      <p class="section-label">Utah Gems</p>
+      <h2 class="section-title">Favorite <span>Courses in Utah</span></h2>
+      <div class="divider"></div>
+      <p class="courses-intro">Utah's dramatic landscapes make for some of the most breathtaking golf in the country. These are my go-to rounds.</p>
+      <div class="courses-grid">
+
+        <div class="course-card">
+          <img src="https://images.unsplash.com/photo-1601662528567-526cd06f6582?w=800&q=80" alt="Thanksgiving Point Golf Club" />
+          <div class="course-card-body">
+            <h3>Thanksgiving Point Golf Club</h3>
+            <p class="location">📍 Lehi, Utah</p>
+            <p>Designed by Johnny Miller, this 7,728-yard course is one of the longest in the state with stunning mountain views from every tee box.</p>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <img src="https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800&q=80" alt="Wolf Creek Golf Resort" />
+          <div class="course-card-body">
+            <h3>Wolf Creek Golf Resort</h3>
+            <p class="location">📍 Eden, Utah</p>
+            <p>Nestled in Ogden Valley near Pineview Reservoir, Wolf Creek offers dramatic elevation changes and postcard-perfect Wasatch scenery.</p>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Provo Golf Course" />
+          <div class="course-card-body">
+            <h3>East Bay Golf Course</h3>
+            <p class="location">📍 Provo, Utah</p>
+            <p>A local favorite for BYU students and Provo residents alike. Affordable, well-maintained, and framed by the Wasatch Front.</p>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=800&q=80" alt="Coral Canyon Golf Course" />
+          <div class="course-card-body">
+            <h3>Coral Canyon Golf Course</h3>
+            <p class="location">📍 Washington, Utah</p>
+            <p>Red rock country golf at its finest. This St. George-area course plays through stunning canyon terrain with desert beauty unlike anywhere else.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE VIDEO -->
+  <section id="video">
+    <div class="container">
+      <p class="section-label">Watch &amp; Learn</p>
+      <h2 class="section-title">Golf <span>On Screen</span></h2>
+      <div class="divider"></div>
+      <p class="intro">There's nothing like watching the pros in slow motion to appreciate just how much skill golf demands. Here's one of my favorite swing breakdowns.</p>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/G9NmBMm3EBE"
+          title="Golf Swing Tips — YouTube"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS (anchor target) -->
+  <section id="tips">
+    <div class="container">
+      <p class="section-label">Getting Started</p>
+      <h2 class="section-title">Tips for <span>New Golfers</span></h2>
+      <div class="divider"></div>
+      <p style="color: var(--text-muted); max-width: 560px;">Golf has a steep learning curve, but a few fundamentals make all the difference. Here are the things I wish someone had told me on day one.</p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-num">01</div>
+          <h3>Master the Grip First</h3>
+          <p>A neutral grip is the foundation of every good swing. Before anything else, spend time getting comfortable with how you hold the club.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">02</div>
+          <h3>Short Game = Score</h3>
+          <p>Most strokes happen within 100 yards. Practice chipping and putting far more than driving — your scorecard will thank you.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">03</div>
+          <h3>Play Ready Golf</h3>
+          <p>Keep the pace of play moving. Be ready to hit when it's your turn — other golfers on the course will appreciate it.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">04</div>
+          <h3>Embrace the Mental Game</h3>
+          <p>Golf is 90% mental. Learn to let bad shots go immediately — every hole is a fresh start. Composure is a skill just like swing mechanics.</p>
+        </div>
+      </div>
+
+      <!-- On-page anchor back to top -->
+      <div style="text-align: center; margin-top: 3.5rem;">
+        <a href="#top" class="btn btn-gold">↑ Back to Top</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">⛳ Fairway Life</div>
+    <p>Made with love for the game · Amy Betancur · IS 201</p>
+    <p style="margin-top: 0.5rem; opacity: 0.6;">Images via Unsplash &amp; Wikimedia Commons</p>
+  </footer>
+
 </body>
 </html>
